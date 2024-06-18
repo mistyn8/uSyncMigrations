@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -7,7 +7,7 @@ using Umbraco.Cms.Core.Logging;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Cms.Core.Strings;
-
+using uSync.Migrations.Core.Configuration;
 using uSync.Migrations.Core.Legacy.Grid;
 
 using uSync.Migrations.Migrators.BlockGrid.BlockMigrators;
@@ -31,6 +31,7 @@ public class GridToBlockGridMigrator : SyncPropertyMigratorBase
     private readonly ILogger<GridToBlockGridMigrator> _logger;
     private readonly IProfilingLogger _profilingLogger;
     private readonly GridConventions _conventions;
+    private readonly IOptions<uSyncMigrationOptions> _options;
 
     public GridToBlockGridMigrator(
         ILegacyGridConfig gridConfig,
@@ -38,7 +39,8 @@ public class GridToBlockGridMigrator : SyncPropertyMigratorBase
         GridSettingsViewMigratorCollection gridSettingsMigrators,
         IShortStringHelper shortStringHelper,
         ILoggerFactory loggerFactory,
-        IProfilingLogger profilingLogger)
+        IProfilingLogger profilingLogger,
+        IOptions<uSyncMigrationOptions> options)
     {
         _gridConfig = gridConfig;
         _blockMigrators = blockMigrators;
@@ -47,6 +49,7 @@ public class GridToBlockGridMigrator : SyncPropertyMigratorBase
         _loggerFactory = loggerFactory;
         _profilingLogger = profilingLogger;
         _logger = loggerFactory.CreateLogger<GridToBlockGridMigrator>();
+        _options = options;
     }
 
     public override string GetEditorAlias(SyncMigrationDataTypeProperty dataTypeProperty, SyncMigrationContext context)
@@ -79,7 +82,7 @@ public class GridToBlockGridMigrator : SyncPropertyMigratorBase
         var gridToBlockContext = new GridToBlockGridConfigContext(gridConfiguration.ToUmbracoGridConfiguration(), legacyGridEditorsConfig);
 
         var contentBlockHelper = new GridToBlockGridConfigBlockHelper(_blockMigrators, _loggerFactory.CreateLogger<GridToBlockGridConfigBlockHelper>());
-        var layoutBlockHelper = new GridToBlockGridConfigLayoutBlockHelper(_conventions, _loggerFactory.CreateLogger<GridToBlockGridConfigLayoutBlockHelper>());
+        var layoutBlockHelper = new GridToBlockGridConfigLayoutBlockHelper(_conventions, _loggerFactory.CreateLogger<GridToBlockGridConfigLayoutBlockHelper>(), _options);
         var layoutSettingsBlockHelper = new GridToBlockGridConfigLayoutSettingsHelper(_conventions, _gridSettingsMigrators, _loggerFactory.CreateLogger<GridToBlockGridConfigLayoutSettingsHelper>());
         // adds content types for the core elements (headline, rte, etc)
         contentBlockHelper.AddConfigDataTypes(gridToBlockContext, context);
@@ -169,7 +172,8 @@ public class GridToBlockGridMigrator : SyncPropertyMigratorBase
             _conventions,
             _blockMigrators,
             _loggerFactory.CreateLogger<GridToBlockContentHelper>(),
-            _profilingLogger);
+            _profilingLogger,
+            _options);
 
         var blockValue = helper.ConvertToBlockValue(source, context, dataTypeAlias ?? "");
         if (blockValue == null)

@@ -77,7 +77,8 @@ internal static class GridConfigurationExtensions
                     ContentElementTypeKey = elementKey,
                     GroupKey = groupKey != Guid.Empty ? groupKey.ToString() : null,
                     BackgroundColor = Grid.GridBlocks.Background,
-                    IconColor = Grid.GridBlocks.Icon
+                    IconColor = Grid.GridBlocks.Icon,
+                    AllowAtRoot = false,
                 };
             }
         }
@@ -90,6 +91,21 @@ internal static class GridConfigurationExtensions
     /// <returns></returns>
     public static string GetBlockname(this ILegacyGridEditorConfig? editorConfig)
     {
+        var customLabels = new Dictionary<string, string> { {"rte", "RTE :: {{ (rte | ncRichText).length > 0  ? (rte | ncRichText | umbWordLimit:5 ) : \"no text content\"}}..."},
+{"media", "IMAGE :: {{(media[0].mediaKey | mediaItemResolver).name}}"},
+{"embed", "EMBED :: {{embed[0].url ? embed[0].url : \"no video\"}}"},
+{"plaintext", "PLAIN INFO TEXT :: {{plaintext ? (plaintext | umbWordLimit:5) : \"no text\"}}..."},
+{"umbraco_form_picker", "FORM :: {{formGuid? (formGuid | formItemResolver).name : \"no form\"}}"},
+{"docType_gridQuote", "QUOTE :: {{summary ? summary.split(\" \").splice(0, 5).join(\" \")  : \"no summary\"}}... : {{author ? author : \"\"}}"} };
+
+        if (customLabels.TryGetValue(editorConfig?.Alias ?? string.Empty, out var customTemplateValue))
+        {
+            if (!customTemplateValue.IsNullOrWhiteSpace())
+            {
+                return customTemplateValue;
+            }
+        }
+
         if (editorConfig?.Config.TryGetValue("nameTemplate", out var nameTemplateValue) == true)
         {
             return nameTemplateValue as string ?? editorConfig?.Name ?? string.Empty;

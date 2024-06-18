@@ -10,13 +10,17 @@
 	  <EmbeddedResource Remove="uSync\**" />
 	  <None Remove="uSync\**" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Compile Remove="Extensions\Migrators\SMRadioButtonListMigrator.cs" />
+	</ItemGroup>
 	
 	<ItemGroup>
+		<PackageReference Include="Dawoe.OEmbedPickerPropertyEditor" Version="10.0.0" />
+		<PackageReference Include="Our.Umbraco.GMaps" Version="3.0.2" />
 		<PackageReference Include="Umbraco.Cms" Version="10.4.0" />
 		<PackageReference Include="uSync" Version="10.3.2" />
 		<PackageReference Include="Umbraco.Forms" Version="10.2.0" />
 		<PackageReference Include="Our.Umbraco.DocTypeGridEditor" Version="10.0.1" />
-		<PackageReference Include="Umbraco.TheStarterKit" Version="10.*" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -25,6 +29,10 @@
 		<ProjectReference Include="..\MyMigrations\MyMigrations.csproj" />
 		<ProjectReference Include="..\uSync.Migrations\uSync.Migrations.csproj" />
 		<RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="68.2.0.9" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="config\" />
 	</ItemGroup>
 
 	<PropertyGroup>
@@ -36,6 +44,7 @@
 		<!-- Remove RazorCompileOnBuild and RazorCompileOnPublish when not using ModelsMode InMemoryAuto -->
 		<RazorCompileOnBuild>false</RazorCompileOnBuild>
 		<RazorCompileOnPublish>false</RazorCompileOnPublish>
+		<UserSecretsId>7bb85e40-3f48-412b-ad19-2813088e8963</UserSecretsId>
 	</PropertyGroup>
 
 </Project>

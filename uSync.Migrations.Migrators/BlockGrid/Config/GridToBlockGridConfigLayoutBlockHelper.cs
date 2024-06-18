@@ -1,12 +1,12 @@
 ﻿using System.Data;
 
 using Microsoft.Extensions.Logging;
-
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json.Linq;
 
 using Umbraco.Cms.Core.PropertyEditors;
 using Umbraco.Extensions;
-
+using uSync.Migrations.Core.Configuration;
 using uSync.Migrations.Migrators.BlockGrid.Extensions;
 using uSync.Migrations.Migrators.BlockGrid.Models;
 
@@ -17,13 +17,16 @@ internal class GridToBlockGridConfigLayoutBlockHelper
 {
     private readonly GridConventions _conventions;
     private readonly ILogger<GridToBlockGridConfigLayoutBlockHelper> _logger;
+    private readonly IOptions<uSyncMigrationOptions> _options;
 
     public GridToBlockGridConfigLayoutBlockHelper(
         GridConventions conventions,
-        ILogger<GridToBlockGridConfigLayoutBlockHelper> logger)
+        ILogger<GridToBlockGridConfigLayoutBlockHelper> logger,
+        IOptions<uSyncMigrationOptions> options)
     {
         _conventions = conventions;
         _logger = logger;
+        _options = options;
     }
 
     public void AddLayoutBlocks(GridToBlockGridConfigContext gridBlockContext, SyncMigrationContext context, string dataTypeAlias)
@@ -158,7 +161,7 @@ internal class GridToBlockGridConfigLayoutBlockHelper
                     allowed.Add("*");
                 }
 
-                if (gridArea.Grid == gridBlockContext.GridColumns)
+                if (gridArea.Grid == gridBlockContext.GridColumns && !_options.Value.GridIgnoreIsFullWidth)
                 {
                     gridBlockContext.AppendToRootEditors(allowed);
                     gridBlockContext.AppendToRootLayouts(allowed);
@@ -194,6 +197,7 @@ internal class GridToBlockGridConfigLayoutBlockHelper
                 GroupKey = gridBlockContext.LayoutsGroup.Key.ToString(),
                 BackgroundColor = Grid.LayoutBlocks.Background,
                 IconColor = Grid.LayoutBlocks.Icon,
+                AllowInAreas = false
             };
 
             gridBlockContext.LayoutBlocks.TryAdd(contentTypeAlias, layoutBlock);

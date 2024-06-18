@@ -1,5 +1,5 @@
 ﻿using Microsoft.Extensions.Logging;
-
+using Microsoft.Extensions.Options;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -8,7 +8,7 @@ using Umbraco.Cms.Core.Logging;
 using Umbraco.Cms.Core.Models;
 using Umbraco.Cms.Core.Models.Blocks;
 using Umbraco.Extensions;
-
+using uSync.Migrations.Core.Configuration;
 using uSync.Migrations.Migrators.BlockGrid.BlockMigrators;
 using uSync.Migrations.Migrators.BlockGrid.Extensions;
 using uSync.Migrations.Migrators.BlockGrid.Models;
@@ -24,17 +24,20 @@ internal class GridToBlockContentHelper
     private readonly GridConventions _conventions;
     private readonly ILogger<GridToBlockContentHelper> _logger;
     private readonly IProfilingLogger _profilingLogger;
+    private readonly IOptions<uSyncMigrationOptions> _options;
 
     public GridToBlockContentHelper(
         GridConventions gridConventions,
         SyncBlockMigratorCollection blockMigrators,
         ILogger<GridToBlockContentHelper> logger,
-        IProfilingLogger profilingLogger)
+        IProfilingLogger profilingLogger,
+        IOptions<uSyncMigrationOptions> options)
     {
         _blockMigrators = blockMigrators;
         _conventions = gridConventions;
         _logger = logger;
         _profilingLogger = profilingLogger;
+        _options = options;
     }
 
     /// <summary>
@@ -95,7 +98,7 @@ internal class GridToBlockContentHelper
                 var areas = row.Areas.Select((x, i) => (x, i));
 
                 var rowColumns = row.Areas.Sum(x => x.Grid.GetIntOrDefault(0));
-                var rowIsFullWidth = sectionIsFullWidth && rowColumns == gridColumns;
+                var rowIsFullWidth = sectionIsFullWidth && rowColumns == gridColumns && !_options.Value.GridIgnoreIsFullWidth;
 
                 var rowLayoutAreas = new List<BlockGridLayoutAreaItem>();
 

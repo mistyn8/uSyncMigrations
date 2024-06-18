@@ -40,6 +40,9 @@ public static class SyncMigrationsBuilderExtensions
             return builder;
         }
 
+        builder.Services.AddOptions<uSyncMigrationOptions>().Configure<IConfiguration>((settings, configuration)
+    => configuration.GetSection(uSyncMigrationOptions.Section).Bind(settings));
+
         builder.Services.AddSingleton<ILegacyGridConfig, LegacyGridConfig>();
 
         builder
@@ -73,8 +76,7 @@ public static class SyncMigrationsBuilderExtensions
 
         builder.Services.AddTransient<ISyncMigrationPackService, SyncMigrationPackService>();
 
-        builder.Services.AddOptions<uSyncMigrationOptions>().Configure<IConfiguration>((settings, configuration)
-            => configuration.GetSection(uSyncMigrationOptions.Section).Bind(settings));
+
 
         if (builder.ManifestFilters().Has<SyncMigrationsManifestFilter>() == false)
             builder.ManifestFilters().Append<SyncMigrationsManifestFilter>();
