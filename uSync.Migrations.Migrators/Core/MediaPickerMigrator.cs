@@ -31,18 +31,40 @@ public class MediaPickerMigrator : SyncPropertyMigratorBase
         var imageOnly = dataTypeProperty.PreValues.GetPreValueOrDefault("onlyImages", false);
         if (imageOnly) config.Filter = UmbConstants.Conventions.MediaTypes.Image;
 
+        if (dataTypeProperty.ConfigAsString is string configString)
+        {
+            if (dataTypeProperty.EditorAlias == UmbEditors.Aliases.MediaPicker)
+            {
+                var oldConfig = JsonConvert.DeserializeObject<MediaPickerConfiguration>(configString);
+                config.Multiple = oldConfig.Multiple;
+                config.StartNodeId = oldConfig.StartNodeId;
+                if (oldConfig.OnlyImages) config.Filter = UmbConstants.Conventions.MediaTypes.Image;
+                config.IgnoreUserStartNodes = oldConfig.IgnoreUserStartNodes;
+                //oldConfig.DisableFolderSelect;
+            }
+
+        }
+
         var mappings = new Dictionary<string, string>
         {
             { "multiPicker", nameof(config.Multiple) },
             { "startNodeId", nameof(config.StartNodeId) },
         };
 
-        return config.MapPreValues(dataTypeProperty.PreValues, mappings);
+        var x = config.MapPreValues(dataTypeProperty.PreValues, mappings);
+
+        return x;
     }
 
     public override string? GetContentValue(SyncMigrationContentProperty contentProperty, SyncMigrationContext context)
     {
         if (string.IsNullOrWhiteSpace(contentProperty.Value))
+        {
+            return contentProperty.Value;
+        }
+
+        // already a mediaPicker3
+        if (contentProperty.ContentTypeAlias == UmbEditors.Aliases.MediaPicker3)
         {
             return contentProperty.Value;
         }
@@ -81,7 +103,8 @@ public class MediaPickerMigrator : SyncPropertyMigratorBase
             }
         }
 
-        return JsonConvert.SerializeObject(media, Formatting.Indented);
+        var x = JsonConvert.SerializeObject(media, Formatting.Indented);
+        return x;
     }
 
     /* This source code has been copied from Umbraco CMS.

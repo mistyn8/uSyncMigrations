@@ -73,6 +73,8 @@ public class GridMigrator : SyncPropertyMigratorBase
 
             if (isDoctypeGridEditorControl(control))
             {
+                _logger.LogInformation(">>> control {control}", control);
+
                 var updatedValues = GetPropertyValues(control, context);
                 var updatedValuesSerialized = JsonConvert.SerializeObject(updatedValues);
 

@@ -17,13 +17,14 @@
       }
     },
     "Umbraco.Web.UI": {
+      "launchUrl": "umbraco#/settings/uSyncMigrations/dashboard",
       "commandName": "Project",
       "dotnetRunMessages": true,
       "launchBrowser": true,
       "applicationUrl": "https://localhost:44363;http://localhost:42577",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
-      }      
+      }
     }
   }
 }

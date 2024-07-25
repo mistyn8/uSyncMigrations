@@ -15,9 +15,12 @@
 	</ItemGroup>
 	
 	<ItemGroup>
+		<PackageReference Include="Bergmania.OpenStreetMap" Version="5.3.2" />
 		<PackageReference Include="Dawoe.OEmbedPickerPropertyEditor" Version="10.0.0" />
 		<PackageReference Include="Our.Umbraco.GMaps" Version="3.0.2" />
-		<PackageReference Include="Umbraco.Cms" Version="10.4.0" />
+		<PackageReference Include="Our.Umbraco.UmbNav.Web" Version="2.0.8" />
+		<PackageReference Include="Serilog.Sinks.Seq" Version="5.1.1" />
+		<PackageReference Include="Umbraco.Cms" Version="10.8.6" />
 		<PackageReference Include="uSync" Version="10.3.2" />
 		<PackageReference Include="Umbraco.Forms" Version="10.2.0" />
 		<PackageReference Include="Our.Umbraco.DocTypeGridEditor" Version="10.0.1" />
@@ -33,6 +36,8 @@
 
 	<ItemGroup>
 	  <Folder Include="config\" />
+	  <Folder Include="Extensions\ProperttEditors\InlineSvgPicker\" />
+	  <Folder Include="Extensions\ProperttEditors\ImageCropPicker\" />
 	</ItemGroup>
 
 	<PropertyGroup>
@@ -44,7 +49,7 @@
 		<!-- Remove RazorCompileOnBuild and RazorCompileOnPublish when not using ModelsMode InMemoryAuto -->
 		<RazorCompileOnBuild>false</RazorCompileOnBuild>
 		<RazorCompileOnPublish>false</RazorCompileOnPublish>
-		<UserSecretsId>7bb85e40-3f48-412b-ad19-2813088e8963</UserSecretsId>
+		<UserSecretsId>24463455-87fd-4b4b-acc1-289ca9c3b5ec</UserSecretsId>
 	</PropertyGroup>
 
 </Project>

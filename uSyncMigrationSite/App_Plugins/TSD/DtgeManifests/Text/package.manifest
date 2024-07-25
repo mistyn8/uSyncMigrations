@@ -1,0 +1,23 @@
+{
+  "gridEditors": [
+    {
+      "name": "Text",
+      "alias": "richtextEditor",
+      "view": "/App_Plugins/DocTypeGridEditor/Views/doctypegrideditor.html",
+      "render": "/App_Plugins/DocTypeGridEditor/Render/DocTypeGridEditor.cshtml",
+      "icon": "icon-notepad",
+      "config": {
+        "allowedDocTypes": [
+          "rteComponent"
+        ],
+        "nameTemplate": "",
+        "enablePreview": true,
+        "overlaySize": "medium",
+        "viewPath": "/Views/Partials/Grid/Editors/DocTypeGridEditor/",
+        "previewViewPath": "/Views/Partials/Grid/Editors/DocTypeGridEditor/Previews/",
+        "previewCssFilePath": "",
+        "previewJsFilePath": ""
+      }
+    }
+  ]
+}

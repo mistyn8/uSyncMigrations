@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<language>
+	<area alias="dashboardTabs">
+		<key alias="TSD.SwaggerAPI">Swagger Api</key>
+	</area>
+  <area alias="sections">
+    <key alias="bwadmin">Brightwells Admin</key>
+  </area>
+	<area alias="clipboard">
+		<key alias="sortItems">Sort Items</key>
+    <key alias="labelForRemoveDuplicates">Remove Duplicates</key>
+  </area>	
+</language>

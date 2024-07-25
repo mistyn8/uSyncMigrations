@@ -1,0 +1,22 @@
+{
+  "gridEditors": [
+    {
+      "name": "IFrame Embed",
+      "alias": "iFrameEmbed",
+      "view": "/App_Plugins/DocTypeGridEditor/Views/doctypegrideditor.html",
+      "render": "/App_Plugins/DocTypeGridEditor/Render/DocTypeGridEditor.cshtml",
+      "icon": "icon-frame-alt color-blue",
+      "config": {
+        "allowedDocTypes": [
+          "iFrameEmbed"
+        ],
+        "nameTemplate": "",
+        "enablePreview": true,
+        "viewPath": "/Views/Partials/Grid/Editors/DocTypeGridEditor/",
+        "previewViewPath": "/Views/Partials/Grid/Editors/DocTypeGridEditor/Previews/",
+        "previewCssFilePath": "",
+        "previewJsFilePath": ""
+      }
+    }
+  ]
+}

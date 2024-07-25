@@ -1,0 +1,22 @@
+{
+  "gridEditors": [
+    {
+      "name": "Team List",
+      "alias": "teamList",
+      "view": "/App_Plugins/DocTypeGridEditor/Views/doctypegrideditor.html",
+      "render": "/App_Plugins/DocTypeGridEditor/Render/DocTypeGridEditor.cshtml",
+      "icon": "icon-users-alt",
+      "config": {
+        "allowedDocTypes": [
+          "teamList"
+        ],
+        "nameTemplate": "",
+        "enablePreview": true,
+        "viewPath": "/Views/Partials/Grid/Editors/DocTypeGridEditor/",
+        "previewViewPath": "/Views/Partials/Grid/Editors/DocTypeGridEditor/Previews/",
+        "previewCssFilePath": "",
+        "previewJsFilePath": ""
+      }
+    }
+  ]
+}

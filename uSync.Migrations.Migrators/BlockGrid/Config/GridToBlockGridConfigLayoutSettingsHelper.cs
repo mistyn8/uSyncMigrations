@@ -60,16 +60,17 @@ internal class GridToBlockGridConfigLayoutSettingsHelper
                 _logger.LogError("No key defined for grid layout configuration in {alias}", gridAlias);
                 return null;
             }
-            var gridSettingPropertyMigrator = _gridSettingsViewMigrators.GetMigrator(configItem.View);
+            var gridSettingPropertyMigrator = _gridSettingsViewMigrators.GetMigrator(configItem.Key, configItem.View);
             var dataTypeAlias = gridSettingPropertyMigrator is not null && !gridSettingPropertyMigrator.NewDataTypeAlias.IsNullOrWhiteSpace()
                                 ? gridSettingPropertyMigrator.NewDataTypeAlias
-                                : configItem.View;
+                                : configItem.View;            
+
             if (dataTypeAlias.IsNullOrWhiteSpace() == true)
             {
                 _logger.LogError("No view defined for grid layout configuration in {alias}", gridAlias);
                 return null;
             }
-            return new NewContentTypeProperty(configItem.Label ?? contentTypeAlias, contentTypeAlias, dataTypeAlias);
+            return new NewContentTypeProperty(configItem.Label ?? contentTypeAlias, contentTypeAlias, dataTypeAlias) ;
         }).WhereNotNull();
 
         var alias = _conventions.LayoutSettingsContentTypeAlias(gridAlias);

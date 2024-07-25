@@ -1,0 +1,21 @@
+//kept the alias as ImageGalley so as not to conflict with umbraco.core image
+{  
+  "gridEditors": [
+    {
+      "name": "Image",
+      "alias": "imageGallery",
+      "view": "/App_Plugins/DocTypeGridEditor/Views/doctypegrideditor.html",
+      "render": "/App_Plugins/DocTypeGridEditor/Render/DocTypeGridEditor.cshtml",
+      "icon": "icon-pictures-alt-2",
+      "config": {
+        "allowedDocTypes": [ "imageGallery" ],
+        "nameTemplate": "",
+        "enablePreview": true,
+        "viewPath": "/Views/Partials/Grid/Editors/DocTypeGridEditor/",
+        "previewViewPath": "/Views/Partials/Grid/Editors/DocTypeGridEditor/Previews/",
+        "previewCssFilePath": "",
+        "previewJsFilePath": ""
+      }
+    }
+  ]
+}

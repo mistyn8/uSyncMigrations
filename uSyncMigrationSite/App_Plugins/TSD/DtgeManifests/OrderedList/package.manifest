@@ -1,0 +1,23 @@
+{
+  //"gridEditors": [
+  //  {
+  //    "name": "Ordered List",
+  //    "alias": "orderedList",
+  //    "view": "/App_Plugins/DocTypeGridEditor/Views/doctypegrideditor.html",
+  //    "render": "/App_Plugins/DocTypeGridEditor/Render/DocTypeGridEditor.cshtml",
+  //    "icon": "icon-ordered-list color-blue",
+  //    "overlaySize" : "medium",
+  //    "config": {
+  //      "allowedDocTypes": [
+  //        "orderedList"
+  //      ],
+  //      "nameTemplate": "",
+  //      "enablePreview": true,
+  //      "viewPath": "/Views/Partials/Grid/Editors/DocTypeGridEditor/",
+  //      "previewViewPath": "/Views/Partials/Grid/Editors/DocTypeGridEditor/Previews/",
+  //      "previewCssFilePath": "",
+  //      "previewJsFilePath": ""
+  //    }
+  //  }
+  //]
+}

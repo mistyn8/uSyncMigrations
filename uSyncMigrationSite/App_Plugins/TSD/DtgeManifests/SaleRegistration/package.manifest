@@ -1,0 +1,23 @@
+{
+  "gridEditors": [
+    {
+      "name": "Sale Registration",
+      "alias": "saleRegistration",
+      "view": "/App_Plugins/DocTypeGridEditor/Views/doctypegrideditor.html",
+      "render": "/App_Plugins/DocTypeGridEditor/Render/DocTypeGridEditor.cshtml",
+      "icon": "icon-cash-register color-orange",
+      "overlaySize" : "medium",
+      "config": {
+        "allowedDocTypes": [
+          "saleRegistration$"
+        ],
+        "nameTemplate": "",
+        "enablePreview": true,
+        "viewPath": "/Views/Partials/Grid/Editors/DocTypeGridEditor/",
+        "previewViewPath": "/Views/Partials/Grid/Editors/DocTypeGridEditor/Previews/",
+        "previewCssFilePath": "",
+        "previewJsFilePath": ""
+      }
+    }
+  ]
+}

@@ -4,6 +4,7 @@ using uSync.Migrations.Core.Configuration.Models;
 using uSync.Migrations.Core.Extensions;
 using uSync.Migrations.Migrators.BlockGrid;
 using uSync.Migrations.Migrators.Optional;
+using uSyncMigrationSite.Extensions.Migrators;
 using UmbConstants = Umbraco.Cms.Core.Constants;
 
 namespace Project.Extensions;
@@ -188,9 +189,47 @@ public class SMBlockMigrationPlan : ISyncMigrationPlan
         {
             { UmbConstants.PropertyEditors.Aliases.NestedContent, nameof(NestedToBlockListMigrator) },
             { UmbConstants.PropertyEditors.Aliases.Grid, nameof(GridToBlockGridMigrator) },
-            { UmbConstants.PropertyEditors.Aliases.MediaPicker, nameof(Lovell.Web.Extensions.Migrations.Migrators.SMMediaPickerMigrator) },
-            { "Umbraco.MediaPicker2", nameof(Lovell.Web.Extensions.Migrations.Migrators.SMMediaPickerMigrator) },
-            { UmbConstants.PropertyEditors.Aliases.MultipleMediaPicker, nameof(Lovell.Web.Extensions.Migrations.Migrators.SMMediaPickerMigrator)},
+            { UmbConstants.PropertyEditors.Aliases.MediaPicker, nameof(SMMediaPickerMigrator) },
+            { "Umbraco.MediaPicker2", nameof(SMMediaPickerMigrator) },
+            { UmbConstants.PropertyEditors.Aliases.MultipleMediaPicker, nameof(SMMediaPickerMigrator)},
+            { UmbConstants.PropertyEditors.Aliases.MultipleTextstring, nameof(SMMultipleTextStringMigrator)},
+            //{ UmbConstants.PropertyEditors.Aliases.RadioButtonList, nameof(Lovell.Web.Extensions.Migrations.Migrators.SMRadioButtonListMigrator) }
+        }
+    };
+}
+
+public class MediaPicker3kMigrationPlan : ISyncMigrationPlan
+{
+    private readonly SyncMigrationHandlerCollection _migrationHandlers;
+
+    public MediaPicker3kMigrationPlan(SyncMigrationHandlerCollection migrationHandlers)
+    {
+        _migrationHandlers = migrationHandlers;
+    }
+
+    public int Order => 203;
+
+    public string Name => "Convert Legacy Media to mediaPicker3";
+
+    public string Icon => "icon-brick color-green";
+
+    public string Description => "Convert Legacy Media to mediaPicker3";
+
+    public MigrationOptions Options => new()
+    {
+        Group = "Convert",
+        Source = "uSync/v9_clean",
+        Target = $"{uSyncMigrations.MigrationFolder}/BW-mp3",
+        Handlers = _migrationHandlers.SelectGroup(8, string.Empty),
+        SourceVersion = 8,
+        PreferredMigrators = new Dictionary<string, string>
+        {
+            //{ UmbConstants.PropertyEditors.Aliases.NestedContent, nameof(NestedToBlockListMigrator) },
+            //{ UmbConstants.PropertyEditors.Aliases.Grid, nameof(GridToBlockGridMigrator) },
+            { UmbConstants.PropertyEditors.Aliases.MediaPicker, nameof(SMMediaPickerMigrator) },
+            { "Umbraco.MediaPicker2", nameof(SMMediaPickerMigrator) },
+            { UmbConstants.PropertyEditors.Aliases.MultipleMediaPicker, nameof(SMMediaPickerMigrator)},
+            { UmbConstants.PropertyEditors.Aliases.MultipleTextstring, nameof(SMMultipleTextStringMigrator)},
             //{ UmbConstants.PropertyEditors.Aliases.RadioButtonList, nameof(Lovell.Web.Extensions.Migrations.Migrators.SMRadioButtonListMigrator) }
         }
     };
