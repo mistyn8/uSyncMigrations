@@ -167,7 +167,7 @@ public class NestedToBlockListMigrator : SyncPropertyMigratorBase
                 var migrator = context.Migrators.TryGetMigrator(editorAlias.OriginalEditorAlias);
                 if (migrator != null)
                 {
-                    _logger.LogDebug("NestedToBlockList: Found Migrator: {migrator}", migrator.GetType().Name);
+                    _logger.LogInformation("NestedToBlockList: Found Migrator: {migrator}", migrator.GetType().Name);
 
                     block.RawPropertyValues[property.Key] = migrator.GetContentValue(
                         new SyncMigrationContentProperty(

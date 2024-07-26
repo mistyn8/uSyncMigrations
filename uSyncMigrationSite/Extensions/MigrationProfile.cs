@@ -193,6 +193,7 @@ public class SMBlockMigrationPlan : ISyncMigrationPlan
             { "Umbraco.MediaPicker2", nameof(SMMediaPickerMigrator) },
             { UmbConstants.PropertyEditors.Aliases.MultipleMediaPicker, nameof(SMMediaPickerMigrator)},
             { UmbConstants.PropertyEditors.Aliases.MultipleTextstring, nameof(SMMultipleTextStringMigrator)},
+            { UmbConstants.PropertyEditors.Aliases.MultiUrlPicker, nameof(SMMultiUrlPickerMigrator)},
             //{ UmbConstants.PropertyEditors.Aliases.RadioButtonList, nameof(Lovell.Web.Extensions.Migrations.Migrators.SMRadioButtonListMigrator) }
         }
     };
